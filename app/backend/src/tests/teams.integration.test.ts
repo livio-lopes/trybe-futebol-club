@@ -14,8 +14,7 @@ const status = {
   OK: 200,
 }
 
-describe.only("Test integration Teams", () => {
-  
+describe("Test integration Teams", () => {
   afterEach(sinon.restore);
   it("Should return all teams on GET /teams", async () => {
     // Arrange
@@ -26,5 +25,15 @@ describe.only("Test integration Teams", () => {
     //assert
     expect(httpResponse.status).to.be.equal(status.OK)
     expect(httpResponse.body).to.be.deep.equal(MockTeams.getAllTeams)
+  })
+  it("Should return a team on GET /teams/:id", async () => {
+    // Arrange
+    const team = SequelizeTeams.build(MockTeams.getAllTeams[0]);
+    sinon.stub(SequelizeTeams, "findByPk").resolves(team)
+    //act
+    const httpResponse = await chai.request(app).get("/teams/1")
+    //assert
+    expect(httpResponse.status).to.be.equal(status.OK)
+    expect(httpResponse.body).to.be.deep.equal(MockTeams.getAllTeams[0])
   })
 })
