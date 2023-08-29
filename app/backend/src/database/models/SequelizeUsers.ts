@@ -9,7 +9,7 @@ import db from '.';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
-  declare userName: string;
+  declare username: string;
   declare role: string;
   declare email: string;
   declare password: string;
@@ -22,7 +22,7 @@ User.init({
     primaryKey: true,
     autoIncrement: true,
   },
-  userName: { type: DataTypes.STRING },
+  username: { type: DataTypes.STRING },
   role: { type: DataTypes.STRING },
   email: { type: DataTypes.STRING },
   password: { type: DataTypes.STRING },

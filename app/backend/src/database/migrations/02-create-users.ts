@@ -10,8 +10,7 @@ export default{
         primaryKey: true,
         allowNull: false,
       },
-      userName: {
-        field: 'user_name',
+      username: {
         type: DataTypes.STRING,
       },
       role:{
