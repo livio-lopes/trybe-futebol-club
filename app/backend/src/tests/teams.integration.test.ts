@@ -12,6 +12,7 @@ const {expect} = chai;
 
 const status = {
   OK: 200,
+  NOT_FOUND: 404
 }
 
 describe("Test integration Teams", () => {
@@ -35,5 +36,14 @@ describe("Test integration Teams", () => {
     //assert
     expect(httpResponse.status).to.be.equal(status.OK)
     expect(httpResponse.body).to.be.deep.equal(MockTeams.getAllTeams[0])
+  })
+  it('Should return 404 when id of team not found', async () => {
+    // Arrange
+    sinon.stub(SequelizeTeams, "findByPk").resolves(null)
+    //act
+    const httpResponse = await chai.request(app).get("/teams/99")
+    //assert
+    expect(httpResponse.status).to.be.equal(status.NOT_FOUND)
+    expect(httpResponse.body).to.be.deep.equal({message: "Team not found"})
   })
 })
