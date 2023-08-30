@@ -11,4 +11,8 @@ loginRouter.post(
   async (req, res) => { userController.login(req, res); },
 );
 
+loginRouter.get(
+  '/role',
+  Validation.tokenValidation,
+);
 export default loginRouter;
