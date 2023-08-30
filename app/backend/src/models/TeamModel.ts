@@ -6,7 +6,6 @@ export default class TeamModel {
 
   public async findAll(): Promise<ITeam[]> {
     const dbTeams = await this.model.findAll();
-    console.log(dbTeams);
     return dbTeams.map((dbTeam) => ({
       id: dbTeam.id,
       teamName: dbTeam.teamName,
