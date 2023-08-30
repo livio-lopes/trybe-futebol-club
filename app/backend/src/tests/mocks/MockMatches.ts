@@ -673,9 +673,12 @@ const allMatches = [
   }
 ]
 
-const allMatchesInProgress = allMatches.filter(match => match.inProgress === true)
+const allMatchesCompleted = allMatches.filter(match => match.inProgress === true)
+
+const allMatchesInProgress = allMatches.filter(match => match.inProgress === false)
 
 export default {
   allMatches,
-  allMatchesInProgress
+ allMatchesCompleted,
+ allMatchesInProgress
 }

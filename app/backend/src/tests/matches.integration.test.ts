@@ -14,11 +14,10 @@ const { expect } = chai;
 
 const OK = 200
 
-describe.only("Test integration Matches", () => {
+describe("Test integration Matches", () => {
   afterEach(sinon.restore);
   it("Should return all matches on GET /matches", async () => {
     // Arrange
-    // const allMatches = SequelizeMatches.bulkBuild(MockMatches.allMatches)
     sinon.stub(SequelizeMatches, 'findAll').resolves(MockMatches.allMatches as any)
     sinon
     // Act
@@ -28,7 +27,24 @@ describe.only("Test integration Matches", () => {
     expect(response.body).to.be.deep.equal(MockMatches.allMatches)
   })
   
-  it.skip("Should return all matches with inProgress true on GET /matches?inProgress=true", async () => {})
+  it("Should return all matches with inProgress true on GET /matches?inProgress=true", async () => {
+    // Arrange
+    sinon.stub(SequelizeMatches, 'findAll').resolves(MockMatches.allMatches as any)
+    // Act
+    const response = await chai.request(app).get('/matches?inProgress=true')
+    // Assert
+    expect(response.status).to.be.equal(OK)
+    expect(response.body).to.be.deep.equal(MockMatches.allMatchesCompleted)
+  })
+  it("Should return all matches with inProgress false on GET /matches?inProgress=false", async () => {
+    // Arrange
+    sinon.stub(SequelizeMatches, 'findAll').resolves(MockMatches.allMatches as any)
+    // Act
+    const response = await chai.request(app).get('/matches?inProgress=false')
+    // Assert
+    expect(response.status).to.be.equal(OK)
+    expect(response.body).to.be.deep.equal(MockMatches.allMatchesInProgress)
+  })
   it.skip('Should return status 200 when PATCH /matches/:id/finish', async () => {})
   it.skip('Should return status 200 when PATCH /matches/:id', async () => {})
   it.skip('Should return status 422 when homeTeam is equal awayTeam on POST /matches', async () => {})
