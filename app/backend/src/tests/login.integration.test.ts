@@ -16,7 +16,7 @@ const INVALID_FIELDS = { message: 'Invalid email or password' };
 const { expect } = chai;
 
 
-describe.only('Test integration Login', () => {
+describe('Test integration Login', () => {
   beforeEach(sinon.restore);
   it('should return 400 when email is not provided', async () => {
     //arrange
