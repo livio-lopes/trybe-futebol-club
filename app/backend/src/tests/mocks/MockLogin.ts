@@ -9,6 +9,9 @@ const loginPasswordInvalid = { email: validEmail, password: '123' }
 const loginEmailNotFound = { email: 'notfound@batata.com', password: validPassword }
 const loginPasswordNotFound = { email: validEmail, password: 'notfound' }
 
+const tokenValid = {
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJVc2VyIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTMzNTk5MjMsImV4cCI6MTY5MzM2MzUyM30.OIZr4yuHc0rKA2AUG75O05HgYT0TBztYYnKCuaxLlUg"
+}
 
 const userLogged = {
   id: 2,
@@ -26,5 +29,6 @@ export default {
   loginPasswordInvalid,
   loginPasswordNotFound,
   loginValid,
-  userLogged
+  userLogged,
+  tokenValid
 }

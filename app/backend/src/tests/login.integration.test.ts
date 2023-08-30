@@ -12,11 +12,13 @@ const BAD_REQUEST = 400;
 const OK = 200;
 const UNAUTHORIZED = 401;
 const ALL_FIELDS_REQUIRED = { "message": "All fields must be filled" }
+const TOKEN_REQUIRED = { "message": "Token not found" }
+const TOKEN_INVALID = { "message": "Token must be a valid token" }
 const INVALID_FIELDS = { message: 'Invalid email or password' };
 const { expect } = chai;
 
 
-describe('Test integration Login', () => {
+describe('Test POST /login', () => {
   beforeEach(sinon.restore);
   it('should return 400 when email is not provided', async () => {
     //arrange
@@ -85,5 +87,41 @@ describe('Test integration Login', () => {
     //assert
     expect(response.status).to.be.equal(UNAUTHORIZED);
     expect(response.body).to.be.deep.equal(INVALID_FIELDS);
+  })
+})
+
+describe('Test GET /login/role', () => {
+  beforeEach(sinon.restore);
+  it('should return 401 when token is not provided', async () => {
+    //arrange
+    const token = ""
+    //act
+    const response = await chai.request(app)
+    .get('/login/role')
+    .set('Authorization', token);
+    //assert
+    expect(response.status).to.be.equal(UNAUTHORIZED);
+    expect(response.body).to.be.deep.equal(TOKEN_REQUIRED);
+
+  })
+  it('should return 401 when token is invalid', async () => {
+    //arrange
+    const token = 'bode voador'
+    //act
+    const response = await chai.request(app)
+    .get('/login/role').set('Authorization', token);
+    //assert
+    expect(response.status).to.be.equal(UNAUTHORIZED);
+    expect(response.body).to.be.deep.equal(TOKEN_INVALID);
+  })
+  it('should return 200 when token is valid', async () => {
+    //arrange
+    const {token} = MockLogin.tokenValid
+    //act
+    const response = await chai.request(app)
+    .get('/login/role').set('Authorization', token);
+    //assert
+    expect(response.status).to.be.equal(OK);
+    expect(response.body).to.be.deep.equal({role: 'user'});
   })
 })
