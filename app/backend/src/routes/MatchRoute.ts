@@ -10,6 +10,12 @@ matchRouter.get(
   async (req, res) => { matchController.findAll(req, res); },
 );
 
+matchRouter.post(
+  '/',
+  Validation.tokenValidation,
+  async (req, res) => { matchController.createMatch(req, res); },
+);
+
 matchRouter.patch(
   '/:id/finish',
   Validation.tokenValidation,

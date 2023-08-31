@@ -1,4 +1,4 @@
-import IMatch, { IGoalsScore, IMatchWithAssociations } from '../Interfaces/Match';
+import IMatch, { IGoalsScore, IMatchWithAssociations, INewMatch } from '../Interfaces/Match';
 import SequelizeMatches from '../database/models/SequelizeMatches';
 import SequelizeTeams from '../database/models/SequelizeTeams';
 
@@ -33,5 +33,11 @@ export default class MatchModel {
   public async updateGoalsScore(goalsScore: IGoalsScore): Promise<void> {
     const { homeTeamGoals, awayTeamGoals, id } = goalsScore;
     await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+  }
+
+  public async createMatch(match: INewMatch): Promise<IMatch> {
+    const newMatch = { ...match, inProgress: true };
+    const dbMatch = await this.model.create(newMatch);
+    return dbMatch;
   }
 }

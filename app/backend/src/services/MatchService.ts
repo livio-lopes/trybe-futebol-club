@@ -4,6 +4,7 @@ import MatchModel from '../models/MatchModel';
 
 const OK = 200;
 const NOT_FOUND = 404;
+const CREATED = 201;
 
 export default class MatchesService {
   constructor(
@@ -45,5 +46,10 @@ export default class MatchesService {
     if (!match) { return { status: NOT_FOUND, data: { message: 'Match not found' } }; }
     await this.matchModel.updateGoalsScore(goalsScore);
     return { status: OK, data: { message: 'Goals score updated' } };
+  }
+
+  public async createMatch(match: IMatch): Promise<ServiceResponse<IMatch>> {
+    const newMatch = await this.matchModel.createMatch(match);
+    return { status: CREATED, data: newMatch };
   }
 }
