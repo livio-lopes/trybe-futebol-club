@@ -2,6 +2,9 @@ import IMatch from '../Interfaces/Match';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
 import MatchModel from '../models/MatchModel';
 
+const OK = 200;
+const NOT_FOUND = 404;
+
 export default class MatchesService {
   constructor(
     private matchModel: MatchModel = new MatchModel(),
@@ -10,19 +13,29 @@ export default class MatchesService {
   public async findAll(query?: string): Promise<ServiceResponse<IMatch[]>> {
     const allMatches = await this.matchModel.findAll();
     if (!query) {
-      return { status: 200, data: allMatches };
+      return { status: OK, data: allMatches };
     }
     if (query === 'true') {
       const inProgressMatches = allMatches.filter((match) => match.inProgress === true);
       return {
-        status: 200,
+        status: OK,
         data: inProgressMatches,
       };
     }
     const completedMatches = allMatches.filter((match) => match.inProgress === false);
     return {
-      status: 200,
+      status: OK,
       data: completedMatches,
     };
+  }
+
+  public async finishMatch(matchId: string): Promise<ServiceResponse<void>> {
+    const numberMatchId = Number(matchId);
+    const match = await this.matchModel.findById(numberMatchId);
+    if (!match) {
+      return { status: NOT_FOUND, data: { message: 'Match not found' } };
+    }
+    await this.matchModel.update(numberMatchId);
+    return { status: OK, data: { message: 'Finished' } };
   }
 }

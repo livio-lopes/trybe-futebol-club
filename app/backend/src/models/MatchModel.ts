@@ -1,4 +1,4 @@
-import { IMatchWithAssociations } from '../Interfaces/Match';
+import IMatch, { IMatchWithAssociations } from '../Interfaces/Match';
 import SequelizeMatches from '../database/models/SequelizeMatches';
 import SequelizeTeams from '../database/models/SequelizeTeams';
 
@@ -19,5 +19,14 @@ export default class MatchModel {
       ],
     }) as unknown as IMatchWithAssociations[];
     return dbMatches;
+  }
+
+  public async findById(matchId: number): Promise<IMatch> {
+    const dbMatch = await this.model.findByPk(matchId);
+    return dbMatch as IMatch;
+  }
+
+  public async update(matchId:number): Promise<void> {
+    await this.model.update({ inProgress: false }, { where: { id: matchId } });
   }
 }
