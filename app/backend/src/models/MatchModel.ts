@@ -26,7 +26,7 @@ export default class MatchModel {
     return dbMatch as IMatch;
   }
 
-  public async update(matchId:number): Promise<void> {
+  public async finishMatch(matchId:number): Promise<void> {
     await this.model.update({ inProgress: false }, { where: { id: matchId } });
   }
 }

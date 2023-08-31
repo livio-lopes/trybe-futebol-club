@@ -35,7 +35,7 @@ export default class MatchesService {
     if (!match) {
       return { status: NOT_FOUND, data: { message: 'Match not found' } };
     }
-    await this.matchModel.update(numberMatchId);
+    await this.matchModel.finishMatch(numberMatchId);
     return { status: OK, data: { message: 'Finished' } };
   }
 }
