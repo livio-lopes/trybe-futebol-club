@@ -689,10 +689,17 @@ const matchIdFound =   {
   "awayTeamGoals": 1,
   "inProgress": false,
 }
+
+const goalsScore = {
+  "homeTeamGoals": 2,
+  "awayTeamGoals": 1,
+}
+
 export default {
   allMatches,
  allMatchesCompleted,
  allMatchesInProgress,
  tokenValid,
- matchIdFound
+ matchIdFound,
+ goalsScore
 }
