@@ -7,6 +7,13 @@ export default interface IMatch {
   inProgress: boolean;
 }
 
+export interface INewMatch {
+  homeTeamId: number;
+  awayTeamId: number;
+  awayTeamGoals: number;
+  homeTeamGoals: number;
+}
+
 export interface IMatchWithAssociations extends IMatch {
   homeTeam: { teamName: string };
   awayTeam: { teamName: string };
