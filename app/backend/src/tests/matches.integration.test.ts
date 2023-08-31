@@ -16,6 +16,7 @@ const { expect } = chai;
 const OK = 200
 const NOT_FOUND = 404
 const CREATED = 201
+const UNPROCESSABLE_ENTITY = 422
 
 describe("Test integration Matches", () => {
   afterEach(sinon.restore);
@@ -115,6 +116,26 @@ describe("Test integration Matches", () => {
     expect(response.body).to.be.deep.equal(MockMatches.matchCreated)
 
   })
-  it.skip('Should return status 422 when homeTeam is equal awayTeam on POST /matches', async () => {})
-  it.skip('Should return status 404 when homeTeam or awayTeam not found on POST /matches', async ()=>{})
+  it('Should return status 422 when homeTeam is equal awayTeam on POST /matches', async () => {
+    //Arrange
+    const httpBody = MockMatches.teamEquals
+    //Act
+    const login = await chai.request(app).post('/login').send(MockLogin.loginValid)
+    const token = login.body.token
+    const response = await chai.request(app)
+    .post('/matches').send(httpBody).set("Authorization", token)
+    //Assert
+    expect(response.status).to.be.equal(UNPROCESSABLE_ENTITY)
+  })
+  it('Should return status 404 when homeTeam or awayTeam not found on POST /matches', async ()=>{
+    //Arrange
+    const httpBody = MockMatches.matchTeamNotFound
+    sinon.stub(SequelizeMatches, 'findByPk').resolves(null) 
+    // Act
+    const login = await chai.request(app).post('/login').send(MockLogin.loginValid)
+    const token = login.body.token
+    const response = await chai.request(app).post('/matches').send(httpBody).set("Authorization", token)
+    //Assert
+    expect(response.status).to.be.equal(NOT_FOUND)
+  })
 })

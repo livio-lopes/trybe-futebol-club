@@ -697,6 +697,20 @@ const newMatch = {
   "awayTeamGoals": 2
 }
 
+const teamEquals ={
+  "homeTeamId": 15, 
+  "awayTeamId": 15,
+  "homeTeamGoals": 2,
+  "awayTeamGoals": 2 
+}
+
+const matchTeamNotFound ={
+  "homeTeamId": 200, 
+  "awayTeamId": 11,
+  "homeTeamGoals": 4,
+  "awayTeamGoals": 5, 
+}
+
 const matchCreated = {
   "id": 49,
   "homeTeamId": 15,
@@ -718,5 +732,7 @@ export default {
   matchIdFound,
   goalsScore,
   newMatch,
-  matchCreated
+  matchCreated,
+  teamEquals,
+  matchTeamNotFound
 }
