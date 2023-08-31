@@ -5,6 +5,7 @@ import chaiHttp = require('chai-http');
 import { app } from "../app";
 import MockMatches from "./mocks/MockMatches";
 import SequelizeMatches from "../database/models/SequelizeMatches";
+import MockLogin from "./mocks/MockLogin";
 
 
 
@@ -13,6 +14,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 const OK = 200
+const NOT_FOUND = 404
 
 describe("Test integration Matches", () => {
   afterEach(sinon.restore);
@@ -45,7 +47,36 @@ describe("Test integration Matches", () => {
     expect(response.status).to.be.equal(OK)
     expect(response.body).to.be.deep.equal(MockMatches.allMatchesInProgress)
   })
-  it.skip('Should return status 200 when PATCH /matches/:id/finish', async () => {})
+  it('Should return status 404 when PATCH /matches/:id/finish', async () => {
+    // Arrange
+    sinon.stub(SequelizeMatches, 'findByPk').resolves(null)
+    // Act
+    const login = await chai.request(app)
+    .post('/login')
+    .send(MockLogin.loginValid)
+
+    const token = login.body.token
+    const response = await chai.request(app)
+    .patch('/matches/45/finish')
+    .set('Authorization', token)
+    // Assert
+    expect(response.status).to.be.equal(NOT_FOUND)
+    expect(response.body).to.be.deep.equal({ message: 'Match not found' })
+  })
+  it('Should return status 200 when PATCH /matches/:id/finish', async () => {
+    // Arrange
+    const matchFound = SequelizeMatches.build(MockMatches.matchIdFound)
+    sinon.stub(SequelizeMatches, 'findByPk').resolves(matchFound)
+    sinon.stub(SequelizeMatches, 'update').resolves()
+    const login = await chai.request(app).post('/login').send(MockLogin.loginValid)
+    const token = login.body.token
+    // Act
+    const response = await chai.request(app)
+    .patch('/matches/1/finish').set('Authorization', token)
+    // Assert
+    expect(response.status).to.be.equal(OK)
+    expect(response.body).to.be.deep.equal({ message: 'Finished' })
+  })
   it.skip('Should return status 200 when PATCH /matches/:id', async () => {})
   it.skip('Should return status 422 when homeTeam is equal awayTeam on POST /matches', async () => {})
   it.skip('Should return status 404 when homeTeam or awayTeam not found on POST /matches', async ()=>{})

@@ -677,8 +677,22 @@ const allMatchesCompleted = allMatches.filter(match => match.inProgress === true
 
 const allMatchesInProgress = allMatches.filter(match => match.inProgress === false)
 
+const tokenValid = {
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJVc2VyIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTMzNTk5MjMsImV4cCI6MTY5MzM2MzUyM30.OIZr4yuHc0rKA2AUG75O05HgYT0TBztYYnKCuaxLlUg"
+}
+
+const matchIdFound =   {
+  "id": 1,
+  "homeTeamId": 16,
+  "homeTeamGoals": 1,
+  "awayTeamId": 8,
+  "awayTeamGoals": 1,
+  "inProgress": false,
+}
 export default {
   allMatches,
  allMatchesCompleted,
- allMatchesInProgress
+ allMatchesInProgress,
+ tokenValid,
+ matchIdFound
 }
