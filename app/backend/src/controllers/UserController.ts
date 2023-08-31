@@ -11,4 +11,9 @@ export default class UserController {
     const allTeams = await this.userService.login(req.body);
     return res.status(allTeams.status).json(allTeams.data);
   }
+
+  public static loginRole(req: Request, res: Response): Response {
+    const { role } = req.body;
+    return res.status(200).json({ role });
+  }
 }

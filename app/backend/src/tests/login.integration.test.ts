@@ -116,8 +116,9 @@ describe('Test GET /login/role', () => {
   })
   it('should return 200 when token is valid', async () => {
     //arrange
-    const {token} = MockLogin.tokenValid
     //act
+    const login = await chai.request(app).post('/login').send(MockLogin.loginValid);
+    const token = login.body.token;
     const response = await chai.request(app)
     .get('/login/role').set('Authorization', token);
     //assert

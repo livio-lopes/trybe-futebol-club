@@ -14,5 +14,6 @@ loginRouter.post(
 loginRouter.get(
   '/role',
   Validation.tokenValidation,
+  (req, res) => { UserController.loginRole(req, res); },
 );
 export default loginRouter;
