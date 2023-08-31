@@ -681,7 +681,7 @@ const tokenValid = {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJVc2VyIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTMzNTk5MjMsImV4cCI6MTY5MzM2MzUyM30.OIZr4yuHc0rKA2AUG75O05HgYT0TBztYYnKCuaxLlUg"
 }
 
-const matchIdFound =   {
+const matchIdFound = {
   "id": 1,
   "homeTeamId": 16,
   "homeTeamGoals": 1,
@@ -690,6 +690,21 @@ const matchIdFound =   {
   "inProgress": false,
 }
 
+const newMatch = {
+  "homeTeamId": 15, // O valor deve ser o id do time
+  "awayTeamId": 10, // O valor deve ser o id do time
+  "homeTeamGoals": 2,
+  "awayTeamGoals": 2
+}
+
+const matchCreated = {
+  "id": 49,
+  "homeTeamId": 15,
+  "homeTeamGoals": 2,
+  "awayTeamId": 10,
+  "awayTeamGoals": 2,
+  "inProgress": true,
+}
 const goalsScore = {
   "homeTeamGoals": 2,
   "awayTeamGoals": 1,
@@ -697,9 +712,11 @@ const goalsScore = {
 
 export default {
   allMatches,
- allMatchesCompleted,
- allMatchesInProgress,
- tokenValid,
- matchIdFound,
- goalsScore
+  allMatchesCompleted,
+  allMatchesInProgress,
+  tokenValid,
+  matchIdFound,
+  goalsScore,
+  newMatch,
+  matchCreated
 }

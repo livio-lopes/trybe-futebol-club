@@ -15,6 +15,7 @@ const { expect } = chai;
 
 const OK = 200
 const NOT_FOUND = 404
+const CREATED = 201
 
 describe("Test integration Matches", () => {
   afterEach(sinon.restore);
@@ -100,7 +101,20 @@ describe("Test integration Matches", () => {
     // Assert
     expect(response.status).to.be.equal(OK)
   })
+  it('Should return status 201 when POST /matches', async ()=>{
+    // Arrange
+    const MockMatch = SequelizeMatches.build(MockMatches.matchCreated)
+    sinon.stub(SequelizeMatches, 'create').resolves(MockMatch)
+    const httpBody = MockMatches.matchCreated
+    // Act
+    const login = await chai.request(app).post('/login').send(MockLogin.loginValid)
+    const token = login.body.token
+    const response = await chai.request(app).post('/matches').set('Authorization', token).send(httpBody)
+    // Assert
+    expect(response.status).to.be.equal(CREATED)
+    expect(response.body).to.be.deep.equal(MockMatches.matchCreated)
+
+  })
   it.skip('Should return status 422 when homeTeam is equal awayTeam on POST /matches', async () => {})
   it.skip('Should return status 404 when homeTeam or awayTeam not found on POST /matches', async ()=>{})
-  it.skip('Should return status 201 when POST /matches', async ()=>{})
 })
