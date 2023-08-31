@@ -1,4 +1,4 @@
-import IMatch from '../Interfaces/Match';
+import IMatch, { IGoals, IGoalsScore } from '../Interfaces/Match';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
 import MatchModel from '../models/MatchModel';
 
@@ -37,5 +37,13 @@ export default class MatchesService {
     }
     await this.matchModel.finishMatch(numberMatchId);
     return { status: OK, data: { message: 'Finished' } };
+  }
+
+  public async updateGoalsScore(goalsScore: IGoalsScore): Promise<ServiceResponse<IGoals>> {
+    const { id } = goalsScore;
+    const match = await this.matchModel.findById(id);
+    if (!match) { return { status: NOT_FOUND, data: { message: 'Match not found' } }; }
+    await this.matchModel.updateGoalsScore(goalsScore);
+    return { status: OK, data: { message: 'Goals score updated' } };
   }
 }

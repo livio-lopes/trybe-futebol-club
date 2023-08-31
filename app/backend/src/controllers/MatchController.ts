@@ -17,4 +17,11 @@ export default class MatchesController {
     const match = await this.matchesService.finishMatch(id);
     return res.status(match.status).json(match.data);
   }
+
+  public async updateGoalsScore(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const goalsScore = { ...req.body, id };
+    const match = await this.matchesService.updateGoalsScore(goalsScore);
+    return res.status(match.status).json(match.data);
+  }
 }

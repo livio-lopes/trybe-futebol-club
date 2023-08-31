@@ -16,4 +16,10 @@ matchRouter.patch(
   async (req, res) => { matchController.finishMatch(req, res); },
 );
 
+matchRouter.patch(
+  '/:id',
+  Validation.tokenValidation,
+  async (req, res) => { matchController.updateGoalsScore(req, res); },
+);
+
 export default matchRouter;

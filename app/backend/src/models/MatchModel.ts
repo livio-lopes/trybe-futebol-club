@@ -1,4 +1,4 @@
-import IMatch, { IMatchWithAssociations } from '../Interfaces/Match';
+import IMatch, { IGoalsScore, IMatchWithAssociations } from '../Interfaces/Match';
 import SequelizeMatches from '../database/models/SequelizeMatches';
 import SequelizeTeams from '../database/models/SequelizeTeams';
 
@@ -21,12 +21,17 @@ export default class MatchModel {
     return dbMatches;
   }
 
-  public async findById(matchId: number): Promise<IMatch> {
+  public async findById(matchId: number): Promise<IMatch | undefined> {
     const dbMatch = await this.model.findByPk(matchId);
-    return dbMatch as IMatch;
+    return dbMatch as IMatch || undefined;
   }
 
   public async finishMatch(matchId:number): Promise<void> {
     await this.model.update({ inProgress: false }, { where: { id: matchId } });
+  }
+
+  public async updateGoalsScore(goalsScore: IGoalsScore): Promise<void> {
+    const { homeTeamGoals, awayTeamGoals, id } = goalsScore;
+    await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
   }
 }
