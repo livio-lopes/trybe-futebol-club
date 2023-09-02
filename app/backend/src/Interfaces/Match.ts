@@ -14,6 +14,10 @@ export interface INewMatch {
   homeTeamGoals: number;
 }
 
+export type GameResults = 'Victory' | 'Defeat' | 'Draw';
+
+export type Board = 'home' | 'away' | undefined;
+
 export interface IMatchWithAssociations extends IMatch {
   homeTeam: { teamName: string };
   awayTeam: { teamName: string };
