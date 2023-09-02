@@ -1,3 +1,4 @@
+import IClassification from '../Interfaces/Leaderboard';
 import { IMatchWithAssociations, GameResults, Board } from '../Interfaces/Match';
 
 export default class Classification {
@@ -179,6 +180,14 @@ export default class Classification {
   ): number {
     const totalGames = Classification.chooseBoardTeamId(board, matches, teamId);
     return totalGames.length;
+  }
+
+  public static classificationSorted(classification:IClassification[]):IClassification[] {
+    return classification.sort((a:IClassification, b:IClassification) =>
+      b.totalPoints - a.totalPoints
+    || b.totalVictories - a.totalVictories
+    || b.goalsBalance - a.goalsBalance
+    || b.goalsFavor - a.goalsFavor);
   }
 }
 

@@ -28,63 +28,9 @@ class LeaderboardService {
     }));
   }
 
-  public async getLeaderboardOrded(board:Board):Promise<IClassification[]> {
-    const leaderboardNoOrder = await this.getLeaderboardNoOrder(board);
-    // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-    const leaderboardOrderByVictories = leaderboardNoOrder
-      .sort((a:IClassification, b:IClassification) =>
-        b.totalPoints - a.totalPoints
-        || b.totalVictories - a.totalVictories
-        || b.goalsBalance - a.goalsBalance
-        || b.goalsFavor - a.goalsFavor);
-    return leaderboardOrderByVictories;
-  }
-
-  //   [].every()
-  //   [].some()
-  // public async getLeaderboardOrderByGoalsBalance(board:Board):Promise<IClassification[]> {
-  //   const leaderboardOrderByVictories = await this.getLeaderboardOrderByVictories(board);
-  //   const leaderboardOrderByGoalsBalance = leaderboardOrderByVictories
-  //     .sort((a:IClassification, b:IClassification) =>
-  //       b.goalsBalance - a.goalsBalance);
-  //   return leaderboardOrderByGoalsBalance;
-  // }
-
-  // public async getLeaderboardOrderByGoalsFavor(board:Board):Promise<IClassification[]> {
-  //   const leaderboardOrderByGoalsBalance = await this.getLeaderboardOrderByGoalsBalance(board);
-  //   const leaderboardOrderByGoalsFavor = leaderboardOrderByGoalsBalance
-  //     .sort((a:IClassification, b:IClassification) =>
-  //       b.goalsFavor - a.goalsFavor);
-  //   return leaderboardOrderByGoalsFavor;
-  // }
-
   public async getLeaderboard(board:Board):Promise<IClassification[]> {
-    const leaderboard = await this.getLeaderboardOrded(board);
-    return leaderboard;
+    const leaderboard = await this.getLeaderboardNoOrder(board);
+    return Classification.classificationSorted(leaderboard);
   }
 }
 export default LeaderboardService;
-
-// const TRUE = () => {
-//   console.log('true');
-//   return true;
-// };
-// const FALSE = () => {
-//   console.log('false');
-//   return false;
-// };
-
-// TRUE() && TRUE();
-// TRUE() && FALSE();
-// FALSE() && TRUE();
-// FALSE() && FALSE();
-
-// true && true;
-// true && false;
-// false && true;
-// false && false;
-
-// true || true;
-// true || false;
-// false || true;
-// false || false;
