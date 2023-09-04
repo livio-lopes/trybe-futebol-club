@@ -14,7 +14,7 @@ const { expect } = chai;
 
 const OK = 200;
 
-describe('Test integration of Leaderboard', () => {
+describe.only('Test integration of Leaderboard', () => {
   beforeEach(sinon.restore);
   it('should return 200 when GET /leaderboard', async () => {
     //arrange
@@ -26,17 +26,8 @@ describe('Test integration of Leaderboard', () => {
     //act
     const response = await chai.request(app).get('/leaderboard')
     //assert
-
     expect(response.status).to.be.equal(OK);
-    expect(response.body[0]).to.have.property('totalPoints');
-    expect(response.body[0]).to.have.property('totalGames');
-    expect(response.body[0]).to.have.property('totalVictories');
-    expect(response.body[0]).to.have.property('totalDraws');
-    expect(response.body[0]).to.have.property('totalLosses');
-    expect(response.body[0]).to.have.property('goalsFavor');
-    expect(response.body[0]).to.have.property('goalsOwn');
-    expect(response.body[0]).to.have.property('goalsBalance');
-    expect(response.body[0]).to.have.property('efficiency');
+    expect(response.body).to.be.deep.equal(MockLeaderboard.getAllLeaderboard)
    
   })
   it('should return 200 when GET /leaderboard/home', async () => {
@@ -51,15 +42,7 @@ describe('Test integration of Leaderboard', () => {
         //assert
     
         expect(response.status).to.be.equal(OK);
-        expect(response.body[0]).to.have.property('totalPoints');
-        expect(response.body[0]).to.have.property('totalGames');
-        expect(response.body[0]).to.have.property('totalVictories');
-        expect(response.body[0]).to.have.property('totalDraws');
-        expect(response.body[0]).to.have.property('totalLosses');
-        expect(response.body[0]).to.have.property('goalsFavor');
-        expect(response.body[0]).to.have.property('goalsOwn');
-        expect(response.body[0]).to.have.property('goalsBalance');
-        expect(response.body[0]).to.have.property('efficiency');
+        expect(response.body).to.be.deep.equal(MockLeaderboard.getLeaderboardHome)  
        
   })
   it('should return 200 when GET /leaderboard/away', async () => {
@@ -74,15 +57,7 @@ describe('Test integration of Leaderboard', () => {
         //assert
     
         expect(response.status).to.be.equal(OK);
-        expect(response.body[0]).to.have.property('totalPoints');
-        expect(response.body[0]).to.have.property('totalGames');
-        expect(response.body[0]).to.have.property('totalVictories');
-        expect(response.body[0]).to.have.property('totalDraws');
-        expect(response.body[0]).to.have.property('totalLosses');
-        expect(response.body[0]).to.have.property('goalsFavor');
-        expect(response.body[0]).to.have.property('goalsOwn');
-        expect(response.body[0]).to.have.property('goalsBalance');
-        expect(response.body[0]).to.have.property('efficiency');
+        expect(response.body).to.be.deep.equal(MockLeaderboard.getLeaderboardAway)
        
   })
 })

@@ -16,67 +16,67 @@ const getAllTeams = [
 const allTeams = [
   { 
     id:1,
-    team_name: 'Avaí/Kindermann',
+    teamName: 'Avaí/Kindermann',
   },
   {
     id:2,
-    team_name: 'Bahia',
+    teamName: 'Bahia',
   },
   {
     id:3,
-    team_name: 'Botafogo',
+    teamName: 'Botafogo',
   },
   {
     id:4,
-    team_name: 'Corinthians',
+    teamName: 'Corinthians',
   },
   {
     id:5,
-    team_name: 'Cruzeiro',
+    teamName: 'Cruzeiro',
   },
   {
     id:6,
-    team_name: 'Ferroviária',
+    teamName: 'Ferroviária',
   },
   {
     id:7,
-    team_name: 'Flamengo',
+    teamName: 'Flamengo',
   },
   {
     id:8,
-    team_name: 'Grêmio',
+    teamName: 'Grêmio',
   },
   {
     id:9,
-    team_name: 'Internacional',
+    teamName: 'Internacional',
   },
   {
     id:10,
-    team_name: 'Minas Brasília',
+    teamName: 'Minas Brasília',
   },
   {
     id:11,
-    team_name: 'Napoli-SC',
+    teamName: 'Napoli-SC',
   },
   {
     id:12,
-    team_name: 'Palmeiras',
+    teamName: 'Palmeiras',
   },
   {
     id:13,
-    team_name: 'Real Brasília',
+    teamName: 'Real Brasília',
   },
   {
     id:14,
-    team_name: 'Santos',
+    teamName: 'Santos',
   },
   {
     id:15,
-    team_name: 'São José-SP',
+    teamName: 'São José-SP',
   },
   {
     id:16,
-    team_name: 'São Paulo',
+    teamName: 'São Paulo',
   },
 ]
 
